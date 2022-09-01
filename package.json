@@ -1,5 +1,5 @@
 {
-  "name": "single_spa",
+  "name": "single-spa",
   "version": "1.0.0",
   "description": "the minimum implement of single_spa",
   "main": "dist/index.cjs",
