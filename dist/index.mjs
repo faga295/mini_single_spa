@@ -141,7 +141,6 @@ function reroute(eventArgument) {
     appsToUnLoad,
     appsToUnmount
   } = getAppChanges();
-  console.log(appsToLoad, appsToMount, appsToUnLoad, appsToUnmount);
   const started2 = isStarted();
   if (!started2) {
     return loadApps();

@@ -4,6 +4,7 @@ function urlReroute(){
     // maybe need some argument
     reroute();
 }
+// 加强pushstate和replacestate
 function patchUpdateState(updateState:any, methodName:string){
     return function(){
         const urlBefore = window.location.href;
@@ -12,6 +13,7 @@ function patchUpdateState(updateState:any, methodName:string){
         if(urlBefore !== urlAfter) urlReroute();
     }
 }
+// 添加事件监听
 export function addListeners(){
     if (isInBrowser) {
         window.addEventListener("hashchange",urlReroute);
