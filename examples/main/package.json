@@ -11,7 +11,8 @@
   "dependencies": {
     "single-spa": "workspace:*",
     "systemjs": "^6.12.4",
-    "vue": "^3.2.37"
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.0.3",

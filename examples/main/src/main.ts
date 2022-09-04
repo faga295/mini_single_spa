@@ -1,8 +1,8 @@
-import { createApp } from 'vue'
+import { createApp,defineAsyncComponent,h } from 'vue'
 import './style.css'
 import App from './App.vue'
+import {createRouter,createWebHashHistory} from 'vue-router'
 import { registerApplication, start } from 'single-spa';
-
 // 手动加载子应用打包出来的文件
 const loadScript = async (url:any) => {
   await new Promise((resolve, reject) => {
@@ -13,6 +13,17 @@ const loadScript = async (url:any) => {
     document.head.appendChild(script)
   });
 }
+const routes = [
+  { path:'/',component:defineAsyncComponent(()=>import('./views/Home.vue'))},
+  { path: '/vue', component: defineAsyncComponent(()=>import('./views/Vue.vue'))  },
+  { path: '/react', component: defineAsyncComponent(()=>import('./views/React.vue'))}
+]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes, 
+})
+
 registerApplication(
   'singleVue',
   async () => {
@@ -22,8 +33,8 @@ registerApplication(
     // 生命周期  singleVue上有bootstrap，mount，unmount方法，打包的时候打到singleVue上去的
     return window.singleVue;
   },
-  location => location.pathname.startsWith('/vue') // 激活标识
+  location => location.hash.endsWith('vue') // 激活标识
 )
 start();
 
-createApp(App).mount('#app')
+createApp(App).use(router).mount('#app')

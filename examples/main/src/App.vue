@@ -5,7 +5,9 @@
 
 <template>
   <div>
-    <a href="/vue">加载子应用</a>
+    <router-link to="/">home</router-link>
+    <div id="vue"></div>
+    <router-view></router-view>
   </div>
 </template>
 

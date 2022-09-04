@@ -17,6 +17,8 @@ export default defineConfig({
       name: 'singleVue',
       formats: ['umd'],
     },
+    sourcemap: true
   },
+  
   
 })

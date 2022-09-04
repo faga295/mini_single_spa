@@ -1,6 +1,7 @@
 import type { LoadApp, Application,ActiveWhen } from '../types/application'
 import { NOT_LOADED, NOT_BOOTSTRAPPED, NOT_MOUNTED, MOUNTED } from './app.helper';
 import { reroute } from '../navigation/reroute';
+import { addListeners } from '../navigation/navagation-events';
 const apps:Application[] = [];
 export function registerApplication(appName: string, loadApp: LoadApp, activeWhen: ActiveWhen){
     const registration = {
@@ -14,6 +15,7 @@ export function registerApplication(appName: string, loadApp: LoadApp, activeWhe
         ...registration
     })
     reroute();
+    addListeners()
 }
 export function getAppChanges():Record<string,Application[]> {
     const appsToUnLoad:Application[] = [];
@@ -26,16 +28,18 @@ export function getAppChanges():Record<string,Application[]> {
             case NOT_LOADED:
                 appsToLoad.push(app)
                 break;
-
             case NOT_BOOTSTRAPPED:
             case NOT_MOUNTED:
                 if(!appShouldBeActive){
                     appsToUnLoad.push(app);
                 } else {
+                    
                     appsToMount.push(app);
                 }
+                break;
             case MOUNTED:
-                appsToUnmount.push(app)
+                if (!appShouldBeActive) appsToUnmount.push(app);
+                break;
         }
     })
     return {appsToLoad, appsToMount, appsToUnLoad, appsToUnmount}

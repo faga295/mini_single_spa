@@ -13,3 +13,6 @@ export interface Application extends LifeCycles {
     loadApp: LoadApp,
     activeWhen: ActiveWhen
 }
+export interface appChange {
+    eventArgument:any
+}
